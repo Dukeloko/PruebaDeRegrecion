@@ -17,14 +17,14 @@ pipeline {
 
         stage('Instalar Dependencias') {
             steps {
-                sh '. venv/bin/activate && pip install -r requirements.txt || true'  // Instala las dependencias dentro del entorno virtual
+                sh '. venv/bin/activate && pip install -r requirements.txt || true'  // Instala dependencias
                 sh '. venv/bin/activate && pip install pytest'  // Asegura que pytest está instalado
             }
         }
 
         stage('Ejecutar Pruebas') {
             steps {
-                sh '. venv/bin/activate && pytest --junitxml=report.xml'  // Ejecuta pytest dentro del entorno virtual
+                sh '. venv/bin/activate && pytest src/ --junitxml=report.xml'  // Ejecuta pytest en la carpeta src/
             }
         }
 

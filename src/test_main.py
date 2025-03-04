@@ -1,7 +1,5 @@
 import math
-
-def area_circulo(radio):
-    return math.pi * radio ** 2  # Usar math.pi para mayor precisión
+from main import area_circulo
 
 def test_area():
     assert area_circulo(1) == math.pi  # Compara con el valor correcto de π
