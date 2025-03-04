@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git url: 'https://github.com/usuario/proyecto.git', branch: 'main'  // Reemplaza con tu repo
+                git url: 'https://github.com/Dukeloko/PruebaDeRegrecion.git', branch: 'main'  // Reemplaza con tu repo
             }
         }
 
