@@ -8,16 +8,23 @@ pipeline {
             }
         }
 
+        stage('Configurar Entorno Virtual') {
+            steps {
+                sh 'python -m venv venv'  // Crea el entorno virtual
+                sh 'source venv/bin/activate'  // Activa el entorno virtual
+            }
+        }
+
         stage('Instalar Dependencias') {
             steps {
-                sh 'pip install -r requirements.txt || true'  // Si hay un archivo de dependencias
-                sh 'pip install pytest'  // Asegura que pytest está instalado
+                sh '. venv/bin/activate && pip install -r requirements.txt || true'  // Instala las dependencias dentro del entorno virtual
+                sh '. venv/bin/activate && pip install pytest'  // Asegura que pytest está instalado
             }
         }
 
         stage('Ejecutar Pruebas') {
             steps {
-                sh 'pytest --junitxml=report.xml'  // Ejecuta las pruebas y genera reporte XML
+                sh '. venv/bin/activate && pytest --junitxml=report.xml'  // Ejecuta pytest dentro del entorno virtual
             }
         }
 
