@@ -4,33 +4,33 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git url: 'https://github.com/Dukeloko/PruebaDeRegrecion.git', branch: 'main'  // Reemplaza con tu repo
+                git url: 'https://github.com/Dukeloko/PruebaDeRegrecion.git', branch: 'main'  
             }
         }
 
         stage('Configurar Entorno Virtual') {
             steps {
-                sh 'python -m venv venv'  // Crea el entorno virtual
-                sh 'source venv/bin/activate'  // Activa el entorno virtual
+                bat 'python -m venv venv'  // Crear entorno virtual en Windows
+                bat 'venv\\Scripts\\activate'  // Activar el entorno virtual en Windows
             }
         }
 
         stage('Instalar Dependencias') {
             steps {
-                sh '. venv/bin/activate && pip install -r requirements.txt || true'  // Instala dependencias
-                sh '. venv/bin/activate && pip install pytest'  // Asegura que pytest está instalado
+                bat 'venv\\Scripts\\activate && pip install -r requirements.txt'  // Instalar dependencias
+                bat 'venv\\Scripts\\activate && pip install pytest'  // Asegurar que pytest esté instalado
             }
         }
 
         stage('Ejecutar Pruebas') {
             steps {
-                sh '. venv/bin/activate && pytest src/ --junitxml=report.xml'  // Ejecuta pytest en la carpeta src/
+                bat 'venv\\Scripts\\activate && pytest src/ --junitxml=report.xml'  // Ejecutar pruebas con pytest
             }
         }
 
         stage('Publicar Reporte') {
             steps {
-                junit 'report.xml'  // Publica el reporte de pruebas en Jenkins
+                junit 'report.xml'  // Publicar el reporte de pruebas en Jenkins
             }
         }
     }
